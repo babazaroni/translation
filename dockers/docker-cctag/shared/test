@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#CCTag/build/src/applications/detection --debug-dir debugdir -n 3 -i CCTag/sample/01.png
+/root/CCTag/build/src/applications/detection --debug-dir debugdir -n 3 -i /root/CCTag/sample/01.png
+
+

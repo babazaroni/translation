@@ -1,0 +1,11 @@
+#!/bin/bash
+
+
+gdb --args CCTag/build/src/applications/detection -n 3 -i CCTag/sample/01.png
+
+#info sources    lists all source files
+#break Identification.cpp:45
+#clear Identification.cpp:45
+#docker inspect 7ed87af91bca  Look for ip address
+
+

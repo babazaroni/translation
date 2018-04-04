@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# create image with name docker-opencv from Dockerfile in ./docker-opencv
+# if the image is already built, then it is just tagged with docker-opencv
+#docker build -t docker-cctag ./docker-cctag
+
+# force a build
+docker build --no-cache -t babazaroni/docker-cctag .
+
+
+
+#CTRL pq  will deatach from the running container
+
+
+#https://stackoverflow.com/questions/35860527/warning-error-disabling-address-space-randomization-operation-not-permitted
+#docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined
+

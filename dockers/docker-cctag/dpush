@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#docker tag docker-cctag babazaroni/docker-cctag
+docker push babazaroni/docker-cctag
+

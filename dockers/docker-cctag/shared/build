@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#apt-get update
+#apt-get install -y dialog apt-utils  #add -y to run headless
+
+#apt-get install -y git  # git-all causes hangup
+
+#apt-get install -y gdb
+
+#apt-get install g++ libpng12-dev libjpeg-dev libeigen3-dev libboost-atomic-dev libboost-chrono-dev libboost-date-time-dev libboost-dev libboost-program-options-dev libboost-exception-dev libboost-filesystem-dev libboost-serialization-dev libboost-system-dev libboost-thread-dev libboost-timer-dev libtbb-dev libdevil-dev
+
+ls -al
+
+#git clone https://github.com/babazaroni/CCTag.git
+
+export OPENCV_INSTALL="/usr/local/share/OpenCV"
+printenv
+cd CCTag
+mkdir build
+cd build
+
+cmake .. -DOpenCV_DIR=${OPENCV_INSTALL}/
+
+make -j `nproc`
+
+#CCTag/build/src/applications/detection -n 3 -i CCTag/sample/01.png
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git clone https://github.com/babazaroni/CCTag.git
+cd CCTag
+git checkout specialCases
+cd ..
+

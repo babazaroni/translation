@@ -1,0 +1,25 @@
+IMAGES
+
+docker build -f DockerFileName .  #build DockerFileName in current directory
+
+docker build -t myimagename . #build DockerFile in current directory and give image a name
+
+docker image ls  # list all images
+doceer images  #list all local images
+
+docker image rm imageID  # delete a particular image
+
+CONTAINERS
+
+docker run -i -t docker-opencv /bin/bash
+docker run -i -t docker-opencv -p 5000:5000 -v shared:/shared /bin/bash
+
+docker ps -aq #list all containers
+docker stop $(docker ps -aq) #stop all running containers
+docker rm $(docker ps -aq) #remove all containers
+
+docker version
+docker info
+
+CTRL PQ  # deattach from container
+
