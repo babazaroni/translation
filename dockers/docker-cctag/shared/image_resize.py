@@ -92,7 +92,8 @@ def main():
 
         fullpath = source_directory + '/' + path
         try:
-            img = Image.open(fullpath).convert('LA')
+#            img = Image.open(fullpath).convert('LA')
+            img = Image.open(fullpath)
         except:
             continue
 
@@ -120,7 +121,9 @@ def main():
         final_scale = min(width_scale,height_scale)
 #        final_scale = .3
 
-        blank_image = Image.new('L', (final_width, final_height), "black")  # create a new black image
+#        blank_image = Image.new('L', (final_width, final_height), "black")  # create a new black image
+        blank_image = Image.new('RGB', (final_width, final_height), "black")  # create a new black image
+
 
 #        print(img.size,blank_image.size)
 
