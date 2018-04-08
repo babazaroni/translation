@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/root/CCTag/build/src/applications/detection  -n 3 -i $1
+
+

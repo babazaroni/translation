@@ -4,7 +4,11 @@ import sys
 import os
 import math
 import numpy as np
+
 from PIL import Image
+from PIL.ExifTags import TAGS, GPSTAGS
+from PIL import ExifTags
+
 import random
 import shutil
 
@@ -29,14 +33,43 @@ def process_args():
         elif idx==1:
             size_multiplier = float(arg)
         elif idx==2:
-            final_width_height = int(arg)
+            final_width = int(arg)
         elif idx==3:
-            class_count = int(arg)
+            final_height = int(arg)
 
 
         print(idx,arg)
 
     return source_directory,final_width, final_height
+
+def fix_orientation(image):
+
+    try:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        exif = dict(image._getexif().items())
+
+        if exif[orientation] == 3:
+            image = image.rotate(180, expand=True)
+        elif exif[orientation] == 6:
+            image = image.rotate(270, expand=True)
+        elif exif[orientation] == 8:
+            image = image.rotate(90, expand=True)
+
+    except (AttributeError, KeyError, IndexError):
+        # cases: image don't have getexif
+        pass
+
+
+#from PIL import Image
+#from PIL.ExifTags import TAGS, GPSTAGS
+#image = Image.open("gpsample.jpg")
+#print(image)
+#info = image._getexif()
+#for tag, value in info.items():
+#    key = TAGS.get(tag, tag) print(key + " " + str(value))
+
 
 
 def main():
@@ -45,7 +78,7 @@ def main():
 
     file_list = get_file_names(source_directory)
 
-    print('file_list',file_list)
+#    print('file_list',file_list)
 
 
     dest_name = "resized"
@@ -63,27 +96,43 @@ def main():
         except:
             continue
 
-        print("processing:",fullpath)
+        if final_width > final_height:
+            if img.size[0] < img.size[1]:
+                img = img.rotate(90,expand = True)
+        else:
+            if final_width < final_height:
+                if img.size[0] > img.size[1]:
+                    img = img.rotate(90, expand=True)
+
+
+        print("processing:",fullpath,img.format,img.size)
+
 
         file_name = os.path.splitext(path)[0]
+
+        if img.size[1] > img.size[0]:
+            img = img.rotate(90, expand=True)
+
+
 
         width_scale = final_width / img.size[0]
         height_scale = final_height / img.size[1]
         final_scale = min(width_scale,height_scale)
-
+#        final_scale = .3
 
         blank_image = Image.new('L', (final_width, final_height), "black")  # create a new black image
 
-        print(img.size)
+#        print(img.size,blank_image.size)
 
         final_size = (int(final_scale * img.size[0]),int(final_scale * img.size[1]))
 
-        print(final_size)
+
+#        print("final size",final_size)
 
 #        img.thumbnail(final_size,Image.ANTIALIAS)
         img = img.resize(final_size, Image.ANTIALIAS)
 
-        print(img.size)
+#        print("image resized",img.size)
 
         blank_image.paste(img, (0, 0))
 
